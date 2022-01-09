@@ -3,6 +3,8 @@
     "bitcoinsv",
     "bsvd",
     "bsvec",
-    "libsv"
+    "libsv",
+    "nolint",
+    "regtest"
   ]
 }

@@ -111,6 +111,7 @@ func longMain() {
 	fmt.Printf("New transaction created: %s\n\n", txID)
 }
 
+//nolint:errcheck
 func shortMain() {
 	privateKey, _ := bsvec.NewPrivateKey(bsvec.S256())
 	publicKey := privateKey.PubKey()
@@ -120,15 +121,10 @@ func shortMain() {
 	address, _ := bscript.NewAddressFromPublicKey(publicKey, false) // false means "not mainnet"
 
 	tx := bt.NewTx()
-	_ = tx.From(utxo.TxID, utxo.Vout, utxo.LockingScript, utxo.Satoshis)
-
-	amount := utxo.Satoshis / 2
-
-	_ = tx.PayTo(address.AddressString, amount)
-
-	_ = tx.ChangeToAddress(address.AddressString, utils.Fees)
-
-	_, _ = tx.SignAuto(&bt.InternalSigner{PrivateKey: privateKey, SigHashFlag: 0})
+	tx.From(utxo.TxID, utxo.Vout, utxo.LockingScript, utxo.Satoshis)
+	tx.PayTo(address.AddressString, utxo.Satoshis/2)
+	tx.ChangeToAddress(address.AddressString, utils.Fees)
+	tx.SignAuto(&bt.InternalSigner{PrivateKey: privateKey, SigHashFlag: 0})
 
 	txID, _ := utils.Bitcoin.SendRawTransaction(tx.ToString())
 
