@@ -27,7 +27,7 @@ func longMain() {
 	}
 	fmt.Printf("Private key:             %x\n", privateKey.Serialize())
 
-	// Generate the public key associated with this private key.  Print this out in both uncompressed and compressed formats.
+	// Get the public key associated with this private key.  Print this out in both uncompressed and compressed formats.
 	publicKey := privateKey.PubKey()
 	fmt.Printf("Uncompressed public key: %x\n", publicKey.SerializeUncompressed())
 	fmt.Printf("Compressed public key:   %x\n", publicKey.SerializeCompressed())
@@ -128,5 +128,5 @@ func shortMain() {
 
 	txID, _ := utils.Bitcoin.SendRawTransaction(tx.ToString())
 
-	fmt.Printf("New transaction created: %s\n\n", txID)
+	fmt.Printf("New transaction created: 	%s\n\n", txID)
 }
